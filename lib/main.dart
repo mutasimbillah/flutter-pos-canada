@@ -14,10 +14,10 @@ import 'app/routes/app_pages.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 //pre-config
-const sound = 'alarm.mp3';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // name
+  'flutter_pos_canada', // id
+  'flutterfcmpos', // name
+  description: 'test description',
   importance: Importance.max,
   playSound: true,
   sound: RawResourceAndroidNotificationSound('alarm'),
@@ -32,21 +32,7 @@ Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
   RemoteNotification? notification = message.notification;
   AndroidNotification? android = message.notification?.android;
   if (notification != null && android != null) {
-    flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        null,
-        null,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            channel.id,
-            channel.name,
-            color: Colors.blue,
-            importance: Importance.max,
-            playSound: true,
-            sound: RawResourceAndroidNotificationSound(sound.split('.').first),
-            icon: '@mipmap/ic_launcher',
-          ),
-        ));
+    print("play in background");
   }
 }
 
@@ -94,8 +80,7 @@ void main() async {
               color: Colors.blue,
               importance: Importance.max,
               playSound: true,
-              sound:
-                  RawResourceAndroidNotificationSound(sound.split('.').first),
+              sound: RawResourceAndroidNotificationSound('alarm'),
               icon: '@mipmap/ic_launcher',
             ),
           ));
