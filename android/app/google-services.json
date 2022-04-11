@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "432256356810",
+    "project_id": "flutter-pos-bc8cb",
+    "storage_bucket": "flutter-pos-bc8cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432256356810:android:bb75eb5242bfbd1d797f33",
+        "android_client_info": {
+          "package_name": "dev.mbill.pos.flutter_pos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432256356810-v5gd7fh083dumod4r77h3mces2erkth1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcEF0SJPPgRbHOcnEkk8R2k1wfXJuLtUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432256356810-v5gd7fh083dumod4r77h3mces2erkth1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
