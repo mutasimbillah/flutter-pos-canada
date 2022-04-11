@@ -33,6 +33,11 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: controller.showNotification,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
