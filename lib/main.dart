@@ -16,9 +16,10 @@ void main() async {
 
   runApp(
     GetMaterialApp(
-      title: "Application",
+      title: "POS Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     ),
   );
 }
@@ -28,6 +29,6 @@ Future initServices() async {
   await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => UiService().init());
   await Get.putAsync(() => ApiService().init());
-  await Get.putAsync(() => FcmService().init());
+  //await Get.putAsync(() => FcmService().init());
   print('All services started...');
 }

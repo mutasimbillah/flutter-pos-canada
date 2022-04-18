@@ -1,11 +1,11 @@
-class ApiSuccess {
+class Api200 {
   int? statusCode;
   bool? success;
   String? message;
   dynamic data;
 }
 
-class ApiSuccessWithPagination {
+class Api200WithPagination {
   int? statusCode;
   bool? success;
   String? message;
