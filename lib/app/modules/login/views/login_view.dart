@@ -64,7 +64,9 @@ class LoginView extends GetView<LoginController> {
                 ),
                 CustomButton(
                   title: "Login",
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.login();
+                  },
                   icon: Icons.arrow_forward,
                   color: ColorManager.PRIMARY,
                   titleColor: ColorManager.TEXT,
