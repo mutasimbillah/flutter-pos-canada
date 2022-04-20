@@ -1,27 +1,47 @@
 import 'package:flutter_pos/app/data/services/api/index_connect.dart';
+import 'package:flutter_pos/app/data/services/api/login_connect.dart';
+import 'package:flutter_pos/app/data/services/ui_service.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 
 class ApiService extends GetxService {
   final String _baseUrl = 'https://qualityconnector.com/api';
 
-  IndexConnect indexConnect = IndexConnect();
+  final UiService _uiService = UiService();
+  final IndexConnect _indexConnect = IndexConnect();
+  final LoginConnect _loginConnect = LoginConnect();
 
   Future<ApiService> init() async {
     print('$runtimeType is ready!');
     return this;
   }
 
-  Future<dynamic> index(String path) async {
+  void apiErrorHandler(dynamic response, String from) {
+    //print(response.status.code);
+    if (response.status.code == 404) {
+      final String msg = from + " Not Found";
+      _uiService.errorSnackBar("Error", msg);
+    }
+  }
+
+  Future<dynamic> login(Map<String, dynamic> data) async {
+    final String url = _baseUrl + '/login';
+    final response = await _loginConnect.login(url, data);
+    if (response.status.isOk) {
+      return response.body;
+    } else {
+      apiErrorHandler(response, 'Login');
+    }
+  }
+
+  Future<dynamic> index(String path, String from) async {
     final String url = _baseUrl + path;
     print(url);
-    final response = await indexConnect.index(url);
-
+    final response = await _indexConnect.index(url);
     if (response.status.isOk) {
-      return response.toString();
+      return response.body;
     } else {
-      print("Error");
-      return Future.error(response.statusText!);
+      apiErrorHandler(response, from);
     }
   }
 }

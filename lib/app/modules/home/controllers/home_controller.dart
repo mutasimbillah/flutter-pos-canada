@@ -37,9 +37,7 @@ class HomeController extends GetxController {
   void onClose() {}
   void increment() => count.value++;
 
-  void test(url) {
-    apiService.index(url);
-  }
+  void test(url) {}
 
   void showNotification() {}
 }
