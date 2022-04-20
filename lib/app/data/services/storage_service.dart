@@ -11,7 +11,9 @@ class StorageService extends GetxService {
     return GetStorage().read(tokenName);
   }
 
-  Future<void> saveToken(String tokenName, String value) async {
+  Future<void> saveToken(String tokenName, String? value) async {
+    //TODO api check and snackbar
+    if (value == null) return;
     await GetStorage().write(tokenName, value);
     print('$tokenName saved');
   }

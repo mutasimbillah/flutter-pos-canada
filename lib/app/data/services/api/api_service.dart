@@ -17,7 +17,10 @@ class ApiService extends GetxService {
   }
 
   void apiErrorHandler(dynamic response, String from) {
-    //print(response.status.code);
+    print(response.status.code);
+    if (response.status.code == 500) {
+      _uiService.errorSnackBar("Error", "Server Error 500");
+    }
     if (response.status.code == 404) {
       final String msg = from + " Not Found";
       _uiService.errorSnackBar("Error", msg);

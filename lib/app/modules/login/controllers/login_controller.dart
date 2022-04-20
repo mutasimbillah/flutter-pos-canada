@@ -1,10 +1,14 @@
+import 'package:flutter_pos/app/data/models/login_model.dart';
 import 'package:flutter_pos/app/data/services/api/api_service.dart';
+import 'package:flutter_pos/app/data/services/storage_service.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
+import 'package:flutter_pos/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
   UiService uiService = UiService();
   ApiService apiService = ApiService();
+  StorageService storageService = StorageService();
 
   // phone
   final _phone = '01675339460'.obs;
@@ -31,6 +35,11 @@ class LoginController extends GetxController {
     print(data);
 
     final response = await apiService.login(data);
-    print(response);
+    if (response != null) {
+      final login = Login.fromJson(response);
+      print(login.data!.accessToken);
+      await storageService.saveToken('user', login.data!.accessToken);
+      Get.offAllNamed(Routes.HOME);
+    }
   }
 }
