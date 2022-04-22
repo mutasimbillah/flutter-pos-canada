@@ -1,19 +1,22 @@
 class UserModel {
-  final String id;
-  final DateTime? createdAt;
+  final int id;
   final String name;
-  final String? avatar;
+  final String address;
+  final String stateId;
 
-  UserModel(
-      {required this.id, this.createdAt, required this.name, this.avatar});
+  UserModel({
+    required this.id,
+    required this.name,
+    required this.address,
+    required this.stateId,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       id: json["id"],
-      createdAt:
-          json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
       name: json["name"],
-      avatar: json["avatar"],
+      address: json["address"],
+      stateId: json["state_id"],
     );
   }
 
@@ -23,9 +26,9 @@ class UserModel {
 
   ///custom comparing function to check if two users are equal
   bool isEqual(UserModel? model) {
-    return this.id == model?.id;
+    return id == model?.id;
   }
 
   @override
-  String toString() => name + id;
+  String toString() => name;
 }

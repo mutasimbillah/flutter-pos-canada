@@ -27,6 +27,9 @@ class HomeView extends GetView<HomeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 10,
+                ),
                 //custom itemBuilder and dropDownBuilder
                 DropdownSearch<UserModel>(
                   showSelectedItems: true,
@@ -40,11 +43,19 @@ class HomeView extends GetView<HomeController> {
                   ),
                   onFind: (String? filter) => apiService.getCustomer(filter),
                   onChanged: (data) {
-                    print("Selected");
+                    print(data);
                   },
                 ),
                 SizedBox(
                   height: 20,
+                ),
+                Card(
+                  child: ListTile(
+                    leading: FlutterLogo(size: 56.0),
+                    title: Text('This is Product Title 1'),
+                    subtitle: Text("CA 11"),
+                    onTap: () => () {},
+                  ),
                 ),
               ],
             ),

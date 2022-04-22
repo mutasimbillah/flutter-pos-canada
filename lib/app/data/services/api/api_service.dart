@@ -29,6 +29,17 @@ class ApiService extends GetxService {
     }
   }
 
+  Future<dynamic> index(String path, String from) async {
+    final String url = _baseUrl + path;
+    //print(url);
+    final response = await _indexConnect.index(url);
+    if (response.status.isOk) {
+      return response.body;
+    } else {
+      apiErrorHandler(response, from);
+    }
+  }
+
   Future<dynamic> login(Map<String, dynamic> data) async {
     final String url = _baseUrl + '/login';
     final response = await _loginConnect.login(url, data);
@@ -39,24 +50,10 @@ class ApiService extends GetxService {
     }
   }
 
-  Future<dynamic> index(String path, String from) async {
-    final String url = _baseUrl + path;
-    print(url);
-    final response = await _indexConnect.index(url);
-    if (response.status.isOk) {
-      return response.body;
-    } else {
-      apiErrorHandler(response, from);
-    }
-  }
-
   Future<List<UserModel>> getCustomer(filter) async {
-    var response = await Dio().get(
-      "https://5d85ccfb1e61af001471bf60.mockapi.io/user",
-      queryParameters: {"filter": filter},
-    );
-
-    final data = response.data;
+    final response = await index("/customer", "Customer");
+    final data = response["data"];
+    //print(data);
     if (data != null) {
       return UserModel.fromJsonList(data);
     }

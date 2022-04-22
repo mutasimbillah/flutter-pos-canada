@@ -25,22 +25,11 @@ void main() async {
 }
 
 Future initServices() async {
-  HttpOverrides.global = MyHttpOverrides();
   print('starting services ...');
   await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => UiService().init());
   await Get.putAsync(() => ApiService().init());
   //await Get.putAsync(() => FcmService().init());
   //Get.put(() => FcmService().handleBackground());
-
   print('All services started...');
-}
-
-class MyHttpOverrides extends HttpOverrides {
-  @override
-  HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)
-      ..badCertificateCallback =
-          (X509Certificate cert, String host, int port) => true;
-  }
 }
