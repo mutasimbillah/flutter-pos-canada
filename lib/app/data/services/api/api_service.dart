@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_pos/app/data/models/user_model.dart';
 import 'package:flutter_pos/app/data/services/api/index_connect.dart';
 import 'package:flutter_pos/app/data/services/api/login_connect.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
@@ -46,5 +48,19 @@ class ApiService extends GetxService {
     } else {
       apiErrorHandler(response, from);
     }
+  }
+
+  Future<List<UserModel>> getCustomer(filter) async {
+    var response = await Dio().get(
+      "https://5d85ccfb1e61af001471bf60.mockapi.io/user",
+      queryParameters: {"filter": filter},
+    );
+
+    final data = response.data;
+    if (data != null) {
+      return UserModel.fromJsonList(data);
+    }
+
+    return [];
   }
 }

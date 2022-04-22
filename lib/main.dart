@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/app/data/services/api/api_service.dart';
-import 'package:flutter_pos/app/data/services/fcm_service.dart';
 import 'package:flutter_pos/app/data/services/storage_service.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
 
@@ -25,10 +25,22 @@ void main() async {
 }
 
 Future initServices() async {
+  HttpOverrides.global = MyHttpOverrides();
   print('starting services ...');
   await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => UiService().init());
   await Get.putAsync(() => ApiService().init());
   //await Get.putAsync(() => FcmService().init());
+  //Get.put(() => FcmService().handleBackground());
+
   print('All services started...');
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
 }

@@ -1,7 +1,9 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/app/core/theme/color_manager.dart';
-import 'package:flutter_pos/app/core/theme/text_theme.dart';
+import 'package:flutter_pos/app/data/services/api/api_service.dart';
 import 'package:flutter_pos/app/global_widgets/app_bar.dart';
+import 'package:flutter_pos/app/data/models/user_model.dart';
 //import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:get/get.dart';
@@ -9,6 +11,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  ApiService apiService = ApiService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +27,24 @@ class HomeView extends GetView<HomeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                  child: Text(
-                    "Header",
-                    style: CustomTextTheme.header,
+                //custom itemBuilder and dropDownBuilder
+                DropdownSearch<UserModel>(
+                  showSelectedItems: true,
+                  showSearchBox: true,
+                  mode: Mode.BOTTOM_SHEET,
+                  compareFn: (i, s) => i?.isEqual(s) ?? false,
+                  dropdownSearchDecoration: InputDecoration(
+                    labelText: "Select User",
+                    contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(),
                   ),
+                  onFind: (String? filter) => apiService.getCustomer(filter),
+                  onChanged: (data) {
+                    print("Selected");
+                  },
+                ),
+                SizedBox(
+                  height: 20,
                 ),
               ],
             ),

@@ -14,10 +14,10 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: CustomAppBar(
-      //   backgroundColor: ColorManager.PRIMARY,
-      //   title: "Hello World!",
-      // ),
+      appBar: CustomAppBar(
+        backgroundColor: ColorManager.PRIMARY,
+        title: "Login",
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -25,12 +25,8 @@ class LoginView extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-                  child: Text(
-                    "Login",
-                    style: CustomTextTheme.header,
-                  ),
+                SizedBox(
+                  height: 20,
                 ),
                 TextFormField(
                   keyboardType: TextInputType.number,
@@ -47,7 +43,7 @@ class LoginView extends GetView<LoginController> {
                   },
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 TextFormField(
                   obscureText: true,
