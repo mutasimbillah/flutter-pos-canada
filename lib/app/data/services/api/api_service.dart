@@ -1,15 +1,13 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_pos/app/data/models/user_model.dart';
 import 'package:flutter_pos/app/data/services/api/connects/index_connect.dart';
 import 'package:flutter_pos/app/data/services/api/connects/login_connect.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
-import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 
 class ApiService extends GetxService {
   final String _baseUrl = 'https://qualityconnector.com/api';
 
-  final UiService _uiService = UiService();
+  final _uiService = Get.find<UiService>();
   final IndexConnect _indexConnect = IndexConnect();
   final LoginConnect _loginConnect = LoginConnect();
 
@@ -19,6 +17,7 @@ class ApiService extends GetxService {
   }
 
   void apiErrorHandler(dynamic response, String from) {
+    //TODO Check internet
     print(response.status.code);
     if (response.status.code == 500) {
       _uiService.errorSnackBar("Error", "Server Error 500");
@@ -32,8 +31,9 @@ class ApiService extends GetxService {
   Future<dynamic> index(String path) async {
     final String url = _baseUrl + path;
     final String from = path.substring(1);
-    print(from);
+    //print(from);
     final response = await _indexConnect.index(url);
+    //print(response.status.isOk);
     if (response.status.isOk) {
       return response.body;
     } else {
@@ -52,7 +52,7 @@ class ApiService extends GetxService {
     }
   }
 
-  //user list
+  //Customer list
   Future<List<UserModel>> getCustomers(filter) async {
     final response = await index("/customer");
     final data = response["data"];

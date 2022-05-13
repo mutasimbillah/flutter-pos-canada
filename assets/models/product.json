@@ -1,11 +1,7 @@
 {
-    "success": true,
-    "message": "",
-    "data": {
-        "id": 1,
-        "name": "Voluptatum magnam et est totam eum officiis sed.",
-        "price": "390",
-        "stock": "15",
-        "details": "Et sunt aut sed."
-    }
+    "id": 1,
+    "name": "Voluptatum magnam et est totam eum officiis sed.",
+    "price": "390",
+    "stock": "15",
+    "details": "Et sunt aut sed."
 }

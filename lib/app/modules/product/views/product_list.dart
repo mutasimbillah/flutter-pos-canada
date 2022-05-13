@@ -13,15 +13,26 @@ class ProductList extends GetView<ProductController> {
       child: Column(
         children: [
           Obx(
-            () => controller.productLoader
+            () => controller.isLoading
                 ? Loading()
-                : Card(
-                    child: ListTile(
-                      leading: FlutterLogo(size: 56.0),
-                      title: Obx(() => Text("Clicks: ${cart.count}")),
-                      subtitle: Text("Product Short Description"),
-                      onTap: () => () {},
-                    ),
+                : ListView.builder(
+                    padding: EdgeInsets.only(bottom: Get.height * 0.02),
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: controller.products.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Card(
+                          child: ListTile(
+                            leading: FlutterLogo(size: 56.0),
+                            title: Text("${controller.products[index].name}"),
+                            subtitle: Text(
+                                "Price : ${controller.products[index].price}"),
+                            onTap: () => () {},
+                          ),
+                        ),
+                      );
+                    },
                   ),
           ),
         ],

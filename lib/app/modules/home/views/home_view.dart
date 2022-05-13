@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  ApiService apiService = ApiService();
-  final cart = Get.find<CartService>();
+  final _apiService = Get.find<ApiService>();
+  final _cart = Get.find<CartService>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
                     contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
                     border: OutlineInputBorder(),
                   ),
-                  onFind: (String? filter) => apiService.getCustomers(filter),
+                  onFind: (String? filter) => _apiService.getCustomers(filter),
                   onChanged: (data) {
                     print(data);
                   },
@@ -54,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                 Card(
                   child: ListTile(
                     leading: FlutterLogo(size: 56.0),
-                    title: Obx(() => Text("Clicks: ${cart.count}")),
+                    title: Obx(() => Text("Clicks: ${_cart.count}")),
                     subtitle: Text("CA 11"),
                     onTap: () => () {},
                   ),
