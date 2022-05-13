@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/app/data/services/api/api_service.dart';
+import 'package:flutter_pos/app/data/services/cart_service.dart';
 import 'package:flutter_pos/app/data/services/storage_service.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
 
@@ -29,6 +30,8 @@ Future initServices() async {
   await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => UiService().init());
   await Get.putAsync(() => ApiService().init());
+  await Get.putAsync(() => CartService().init());
+
   //await Get.putAsync(() => FcmService().init());
   //Get.put(() => FcmService().handleBackground());
   print('All services started...');

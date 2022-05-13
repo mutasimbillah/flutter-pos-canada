@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_pos/app/data/models/user_model.dart';
-import 'package:flutter_pos/app/data/services/api/index_connect.dart';
-import 'package:flutter_pos/app/data/services/api/login_connect.dart';
+import 'package:flutter_pos/app/data/services/api/connects/index_connect.dart';
+import 'package:flutter_pos/app/data/services/api/connects/login_connect.dart';
 import 'package:flutter_pos/app/data/services/ui_service.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
@@ -29,9 +29,10 @@ class ApiService extends GetxService {
     }
   }
 
-  Future<dynamic> index(String path, String from) async {
+  Future<dynamic> index(String path) async {
     final String url = _baseUrl + path;
-    //print(url);
+    final String from = path.substring(1);
+    print(from);
     final response = await _indexConnect.index(url);
     if (response.status.isOk) {
       return response.body;
@@ -40,6 +41,7 @@ class ApiService extends GetxService {
     }
   }
 
+  //user login
   Future<dynamic> login(Map<String, dynamic> data) async {
     final String url = _baseUrl + '/login';
     final response = await _loginConnect.login(url, data);
@@ -50,8 +52,9 @@ class ApiService extends GetxService {
     }
   }
 
-  Future<List<UserModel>> getCustomer(filter) async {
-    final response = await index("/customer", "Customer");
+  //user list
+  Future<List<UserModel>> getCustomers(filter) async {
+    final response = await index("/customer");
     final data = response["data"];
     //print(data);
     if (data != null) {

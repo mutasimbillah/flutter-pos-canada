@@ -2,6 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pos/app/core/theme/color_manager.dart';
 import 'package:flutter_pos/app/data/services/api/api_service.dart';
+import 'package:flutter_pos/app/data/services/cart_service.dart';
 import 'package:flutter_pos/app/global_widgets/app_bar.dart';
 import 'package:flutter_pos/app/data/models/user_model.dart';
 //import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,6 +13,7 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   ApiService apiService = ApiService();
+  final cart = Get.find<CartService>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class HomeView extends GetView<HomeController> {
                     contentPadding: EdgeInsets.fromLTRB(12, 12, 0, 0),
                     border: OutlineInputBorder(),
                   ),
-                  onFind: (String? filter) => apiService.getCustomer(filter),
+                  onFind: (String? filter) => apiService.getCustomers(filter),
                   onChanged: (data) {
                     print(data);
                   },
@@ -52,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                 Card(
                   child: ListTile(
                     leading: FlutterLogo(size: 56.0),
-                    title: Text('This is Product Title 1'),
+                    title: Obx(() => Text("Clicks: ${cart.count}")),
                     subtitle: Text("CA 11"),
                     onTap: () => () {},
                   ),
@@ -63,7 +65,7 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: controller.showNotification,
+        onPressed: () => controller.addProduct(),
         tooltip: 'Add',
         child: const Icon(Icons.add),
       ),
